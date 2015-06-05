@@ -1,0 +1,2 @@
+exports.context = new AudioContext();
+
