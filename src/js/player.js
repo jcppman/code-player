@@ -31,8 +31,10 @@ function Player(params){
 
 Player.prototype = xtend(Player.prototype, {
   getCurrentPosition: function(){
-    if(this.status === 'stoped') return 0;
-    return Math.max((this.ctx.currentTime - this.start - START_OFFSET), 0) / (this.unit * this.length);
+    return Math.min(
+      Math.max((this.ctx.currentTime - this.start - START_OFFSET), 0) / (this.unit * this.length),
+      1
+    );
   },
   addTrack: function(track){
     this.tracks.push(track);
