@@ -4,7 +4,7 @@
   "description": "play your code",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node build.js"
   },
   "keywords": [
     "code",
@@ -22,6 +22,17 @@
     "xtend": "^4.0.0"
   },
   "devDependencies": {
-    "xtend": "^4.0.0"
+    "browserify": "^10.2.3",
+    "factor-bundle": "^2.4.1",
+    "gulp": "^3.9.0",
+    "gulp-less": "^3.0.3",
+    "gulp-util": "^3.0.5",
+    "node-lessify": "0.0.10",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "browserify": {
+    "transform": [
+      "node-lessify"
+    ]
   }
 }
