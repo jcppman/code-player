@@ -14,13 +14,10 @@ var bassComposer = require('./composers/bass-composer');
 var Track = require('./track');
 var Instrument = require('./instrument');
 var Player = require('./player');
+var scales = require('./scales');
 
 $(function(){
-
-  var beatsPerBar = 4;
-  var bpm = 130;
   var player;
-
   var query = parseQuery();
 
   // INIT LAYOUT
@@ -39,8 +36,6 @@ $(function(){
   });
 
   if(query.src) {
-    var ext = path.extname(query.src).replace('.', '');
-    $code.addClass('lang-'+ext);
     load(query.src).then(function(){
       player.play();
       updateCursor();
@@ -53,17 +48,20 @@ $(function(){
   }
 
   function load(file){
-
     var proxy = query.proxy || '';
 
     return get(proxy + file).then(function(text){
+      var beatsPerBar = query.beatsPerBar || 4,
+          melodyScale = scales[query.melodyScale] || scales.blues,
+          bassScale = scales[query.bassScale] || scales.minorPentatonic;
+
       $code.text(text);
       hljs.highlightBlock($code[0]);
 
       var material = text.split('\n');
       player = new Player({
         beatsPerBar: beatsPerBar,
-        bpm: bpm
+        bpm: query.bpm || 130
       });
 
       var melody = new Track({
