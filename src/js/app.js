@@ -1,6 +1,7 @@
 require('../css/solarized_dark.css');
 require('../less/app.less');
 
+var LOOP_INTERVAL = 4000;
 var querystring = require('querystring');
 var $ = require('jquery');
 
@@ -24,6 +25,11 @@ $(function(){
   if(params.src) {
     load(params.src).then(function(){
       player.play();
+      player.on('end', function(){
+        setTimeout(function(){
+          player.play();
+        }, LOOP_INTERVAL);
+      });
     });
   }
 
@@ -37,26 +43,26 @@ $(function(){
       var root = engine.noteToBase(params.root);
       //compose & play
       var tracks = [
-            {
-              scale: scales[params.melodyScale] || scales.blues,
-              instrument: {
-                type: 'square',
-                root: root
-              },
-              composer: simpleComposer,
-              pan: 0.6
-            },
-            {
-              scale: scales[params.bassScale] || scales.minorPentatonic,
-              instrument: {
-                type: 'triangle',
-                root: root
-              },
-              composer: bassComposer,
-              pan: -0.6,
-              volume: 0.7
-            }
-          ];
+        {
+          scale: scales[params.melodyScale] || scales.blues,
+          instrument: {
+            type: 'square',
+            root: root
+          },
+          composer: simpleComposer,
+          pan: 0.6
+        },
+        {
+          scale: scales[params.bassScale] || scales.minorPentatonic,
+          instrument: {
+            type: 'triangle',
+            root: root
+          },
+          composer: bassComposer,
+          pan: -0.6,
+          volume: 0.7
+        }
+      ];
 
       player = new Player({
         beatsPerBar: params.beatsPerBar,
