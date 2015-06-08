@@ -14,15 +14,16 @@
   "author": "Chriest Yu <jcppman@gmail.com>",
   "license": "MIT",
   "dependencies": {
+  },
+  "devDependencies": {
     "highlight.js": "^8.6.0",
     "jquery": "^2.1.4",
     "lodash": "^3.9.3",
     "soundbank-reverb": "^1.1.2",
     "through2": "^0.6.5",
-    "xtend": "^4.0.0"
-  },
-  "devDependencies": {
+    "xtend": "^4.0.0",
     "browserify": "^10.2.3",
+    "camelcase": "^1.1.0",
     "factor-bundle": "^2.4.1",
     "gulp": "^3.9.0",
     "gulp-less": "^3.0.3",
