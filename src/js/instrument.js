@@ -1,6 +1,17 @@
 var through = require('through2');
 var xtend = require('xtend');
 
+var factors = {};
+
+(function(map){
+  for(var range = -3; range < 4; range++){
+    map[range] = {};
+    for(var note = 0; note < 12; note++){
+      map[range][note] = Math.pow(2, range + (note + 1) / 12);
+    }
+  }
+})(factors);
+
 function Instrument(params){
   params = params || {};
   var ctx = require('./audio-engine').context,
@@ -34,7 +45,7 @@ function Instrument(params){
         note = _note.note,
         frequency;
 
-    frequency = that.root * Math.pow(2, range + (note + 1) / 12);
+    frequency = that.root * factors[range][note];
 
     gate.gain.setValueAtTime(1, start);
     gate.gain.setValueAtTime(0, end);
