@@ -6,7 +6,7 @@ var querystring = require('querystring');
 var path = require('path');
 
 var $ = require('jquery');
-var hljs = require('highlight.js');
+var _ = require('lodash');
 
 var get = require('./get');
 var simpleComposer = require('./composers/simple-composer');
@@ -18,103 +18,88 @@ var scales = require('./scales');
 
 $(function(){
   var player;
-  var query = parseQuery();
+  var params = _.defaults(parseQuery(), {
+    root: 440,
+    beatsPerBar: 4,
+    bpm: 130,
+    melodyScale: 'blues',
+    bassScale: 'minorPentatonic'
+  });
 
   // INIT LAYOUT
   var $container = $('#code-container'),
-      $content = $('pre'),
-      $cursor = $('<div>'),
-      $code = $content.find('code');
+      $header = $('#header');
 
-  $content.append($cursor);
-  $cursor.css({
-    width: '100%',
-    height: '2px',
-    position: 'absolute',
-    top: '0',
-    'background-color': 'red'
-  });
-
-  if(query.src) {
-    load(query.src).then(function(){
+  if(params.src) {
+    load(params.src).then(function(){
       player.play();
-      updateCursor();
     });
   }
 
+  $header.append(require('./elements/status')(params));
+
   function parseQuery(){
+    var camelcase = require('camelcase');
     var parsedUrl = url.parse(location.href, true);
-    return parsedUrl.query;
+    // all key need to be camelcase, but not all values
+    var camelWhitelist = [
+      'melody-scale',
+      'base-scale'
+    ];
+    return _.reduce(parsedUrl.query, function(result, val, key){
+      result[camelcase(key)] = camelWhitelist.indexOf(key) !== -1 ? camelcase(val) : val;
+      return result;
+    }, {});
   }
 
   function load(file){
-    var proxy = query.proxy || '';
+    var proxy = params.proxy || '';
 
     return get(proxy + file).then(function(text){
-      var beatsPerBar = query.beatsPerBar || 4,
-          melodyScale = scales[query.melodyScale] || scales.blues,
-          bassScale = scales[query.bassScale] || scales.minorPentatonic;
+      //compose & play
+      var tracks = [
+            {
+              scale: scales[params.melodyScale] || scales.blues,
+              instrument: {
+                type: 'square',
+                root: params.root
+              },
+              composer: simpleComposer,
+              pan: 0.6
+            },
+            {
+              scale: scales[params.bassScale] || scales.minorPentatonic,
+              instrument: {
+                type: 'triangle',
+                root: params.root
+              },
+              composer: bassComposer,
+              pan: -0.6,
+              volume: 0.7
+            }
+          ];
 
-      $code.text(text);
-      hljs.highlightBlock($code[0]);
+      player = new Player({
+        beatsPerBar: params.beatsPerBar,
+        bpm: params.bpm
+      });
 
       var material = text.split('\n');
-      player = new Player({
-        beatsPerBar: beatsPerBar,
-        bpm: query.bpm || 130
+
+      tracks.forEach(function(config){
+        var track = new Track({
+          notes: config.composer(material, {
+            scale: config.scale
+          }),
+          instrument: new Instrument(config.instrument),
+          pan: config.pan,
+          volume: config.volume,
+        });
+        player.addTrack(track);
       });
 
-      var melody = new Track({
-        notes: simpleComposer(material, {
-          scale: require('./scales').blues
-        }),
-        instrument: new Instrument({
-          type: 'square'
-        }),
-        pan: 0.6
-      });
-      player.addTrack(melody);
-
-      var bassline = new Track({
-        notes: bassComposer(material, {
-          scale: require('./scales').minorPentatonic,
-          beatsPerBar: beatsPerBar
-        }),
-        instrument: new Instrument({
-          type: 'triangle'
-        }),
-        pan: -0.5,
-        volume: 0.7
-      });
-      player.addTrack(bassline);
+      $container.append(require('./elements/code-viewer')(text, player, params));
     });
   }
-
-  var frameController = 0;
-  function updateCursor(){
-    frameController = (frameController+1)%5;
-
-    if(!frameController && player){
-      
-      var now = player.getCurrentPosition();
-      var current = $code.height() * now;
-      var cursorOffset, contentOffset;
-      if(current > $container.height() / 2) {
-        cursorOffset = $container.height() / 2;
-        contentOffset = cursorOffset - current;
-      } else {
-        cursorOffset = current;
-        contentOffset = 0;
-      }
-      $cursor.css({
-        'transform': 'translateY(' + cursorOffset + 'px)'
-      });
-      $code.css({
-        'transform': 'translateY(' + contentOffset + 'px)'
-      });
-    }
-    window.requestAnimationFrame(updateCursor);
-  }
-
 });
 
