@@ -1,12 +1,8 @@
 require('../css/solarized_dark.css');
 require('../less/app.less');
 
-var url = require('url');
 var querystring = require('querystring');
-var path = require('path');
-
 var $ = require('jquery');
-var _ = require('lodash');
 
 var get = require('./get');
 var simpleComposer = require('./composers/simple-composer');
@@ -18,17 +14,12 @@ var scales = require('./scales');
 
 $(function(){
   var player;
-  var params = _.defaults(parseQuery(), {
-    root: 'A',
-    beatsPerBar: 4,
-    bpm: 130,
-    melodyScale: 'blues',
-    bassScale: 'minorPentatonic'
-  });
+  var params = require('./parameters');
 
   // INIT LAYOUT
   var $container = $('#code-container'),
-      $header = $('#header');
+      $header = $('#header'),
+      $back = $('#back');
 
   if(params.src) {
     load(params.src).then(function(){
@@ -37,20 +28,6 @@ $(function(){
   }
 
   $header.append(require('./elements/status')(params));
-
-  function parseQuery(){
-    var camelcase = require('camelcase');
-    var parsedUrl = url.parse(location.href, true);
-    // all key need to be camelcase, but not all values
-    var camelWhitelist = [
-      'melody-scale',
-      'base-scale'
-    ];
-    return _.reduce(parsedUrl.query, function(result, val, key){
-      result[camelcase(key)] = camelWhitelist.indexOf(key) !== -1 ? camelcase(val) : val;
-      return result;
-    }, {});
-  }
 
   function load(file){
     var proxy = params.proxy || '';
