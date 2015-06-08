@@ -1,1 +1,24 @@
+@header-height: 150px;
+body {
+  background-color: black;
+}
 
+#header{
+  position: fixed;
+  top: 0;
+  height: @header-height;
+  left: 0;
+  right: 0;
+}
+
+#code-container{
+  position: fixed;
+  top: @header-height;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  pre{
+    position: relative;
+    overflow: hidden;
+  }
+}

@@ -1,5 +1,5 @@
+require('../css/solarized_dark.css');
 require('../less/app.less');
-
 
 var url = require('url');
 var querystring = require('querystring');
@@ -24,13 +24,11 @@ $(function(){
   var query = parseQuery();
 
   // INIT LAYOUT
-  var $content = $('pre'),
+  var $container = $('#code-container'),
+      $content = $('pre'),
       $cursor = $('<div>'),
       $code = $content.find('code');
 
-  $content.css({
-    position: 'relative'
-  });
   $content.append($cursor);
   $cursor.css({
     width: '100%',
@@ -101,9 +99,20 @@ $(function(){
     if(!frameController && player){
       
       var now = player.getCurrentPosition();
-      var top = $code.height() * now;
+      var current = $code.height() * now;
+      var cursorOffset, contentOffset;
+      if(current > $container.height() / 2) {
+        cursorOffset = $container.height() / 2;
+        contentOffset = cursorOffset - current;
+      } else {
+        cursorOffset = current;
+        contentOffset = 0;
+      }
       $cursor.css({
-        'transform': 'translateY(' + top + 'px)'
+        'transform': 'translateY(' + cursorOffset + 'px)'
+      });
+      $code.css({
+        'transform': 'translateY(' + contentOffset + 'px)'
       });
     }
     window.requestAnimationFrame(updateCursor);
