@@ -1,16 +1,7 @@
 var through = require('through2');
 var xtend = require('xtend');
 
-var factors = {};
-
-(function(map){
-  for(var range = -3; range < 4; range++){
-    map[range] = {};
-    for(var note = 0; note < 12; note++){
-      map[range][note] = Math.pow(2, range + (note + 1) / 12);
-    }
-  }
-})(factors);
+var factors = require('./audio-engine').freqFactors;
 
 function Instrument(params){
   params = params || {};

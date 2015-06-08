@@ -19,7 +19,7 @@ var scales = require('./scales');
 $(function(){
   var player;
   var params = _.defaults(parseQuery(), {
-    root: 440,
+    root: 'A',
     beatsPerBar: 4,
     bpm: 130,
     melodyScale: 'blues',
@@ -56,13 +56,15 @@ $(function(){
     var proxy = params.proxy || '';
 
     return get(proxy + file).then(function(text){
+      var engine = require('./audio-engine');
+      var root = engine.noteToBase(params.root);
       //compose & play
       var tracks = [
             {
               scale: scales[params.melodyScale] || scales.blues,
               instrument: {
                 type: 'square',
-                root: params.root
+                root: root
               },
               composer: simpleComposer,
               pan: 0.6
@@ -71,7 +73,7 @@ $(function(){
               scale: scales[params.bassScale] || scales.minorPentatonic,
               instrument: {
                 type: 'triangle',
-                root: params.root
+                root: root
               },
               composer: bassComposer,
               pan: -0.6,
