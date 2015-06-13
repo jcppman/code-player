@@ -1,0 +1,25 @@
+@header-height: 150px;
+@z: 0;
+body{
+  background-color: black;
+}
+
+.player{
+  > div:first-child{
+    position: fixed;
+    top: 0;
+    height: @header-height;
+    left: 0;
+    right: 0;
+    z-index: @z + 10;
+  }
+  > div:nth-child(2){
+    position: fixed;
+    top: @header-height;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: @z;
+  }
+}
+

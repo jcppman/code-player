@@ -1,0 +1,30 @@
+@background-color: lighten(black, 20%);
+.parameter{
+  float: left;
+  display: inline-block;
+  margin: 10px;
+  padding: 6px 10px;
+  background-color: @background-color;
+  font-size: 25px;
+
+  position: relative;
+  .options{
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    z-index: 999;
+    background-color: @background-color;
+    text-align: center;
+    .option:hover{
+      background-color: lighten(@background-color, 10%);
+    }
+    input[type=range]{
+      width: 95%;
+    }
+  }
+  &:hover > .options{
+    display: block;
+  }
+}
