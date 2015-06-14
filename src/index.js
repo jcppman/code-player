@@ -81,7 +81,7 @@ var Entry = React.createClass({
       });
     });
     bus.on('go', function(){
-      var url = '/app.html?' + querystring.stringify(that.state.params);
+      var url = 'app.html?' + querystring.stringify(that.state.params);
       window.location = url;
     });
   }
