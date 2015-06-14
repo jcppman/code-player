@@ -13,7 +13,7 @@ var Header = React.createClass({
 
     return (
       <div className='header'>
-        <h1><a href="/">Code Player</a></h1>
+        {this.props.children}
         <div className='parameters'>
           {paramNodes}
         </div>

@@ -1,0 +1,61 @@
+body{
+  background-color: black;
+  color: white;
+  font-size: 24px;
+}
+
+.entry{
+  padding: 3rem;
+  text-align: center;
+  >*{
+    padding-top: 2rem;
+  }
+  .title{
+    h1{
+      font-size: 3rem;
+    }
+    p.sub{
+      font-size: 1.8rem;
+      color: darken(white, 20%);
+      .wrong{
+        text-decoration: line-through;
+      }
+    }
+  }
+  .url-input{
+    @radius: 0.6rem;
+    @button-color: #4ba74b;
+
+    text-align: center;
+    *>{
+      display: inline-block;
+      font-size: 2rem;
+      border-width: 0;
+      height: 2.4rem;
+      line-height: 2.4rem;
+      vertical-align: middle;
+    }
+    input[type=url]{
+      width: 69%;
+      border-radius: @radius 0 0 @radius;
+      padding: 0;
+      text-align: center;
+    }
+    .submit{
+      width: 30%;
+      max-width: 6rem;
+      border-radius: 0 @radius @radius 0;
+      padding: 0 1rem;
+      background-color: @button-color;
+      border-color: lighten(@button-color, 10%);
+      color: white;
+    }
+  }
+  .proxy{
+    input{
+      font-size: 1rem;
+      margin-left: 1rem;
+    }
+  }
+}
+

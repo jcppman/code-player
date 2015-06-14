@@ -27,7 +27,9 @@ var App = React.createClass({
     var CodeViewer = require('./components/code-viewer');
     return (
       <div className="player">
-        <Header params={this.state.params} setParams={this.setParams} />
+        <Header params={this.state.params} setParams={this.setParams}>
+          <h1><a href="/">Code Player</a></h1>
+        </Header>
         <CodeViewer
           text={this.state.text}
           current={this.state.current} />
