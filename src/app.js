@@ -1,5 +1,7 @@
 require('./app.less');
 
+var querystring = require('querystring');
+
 var LOOP_INTERVAL = 4000;
 
 var React = require('react');
@@ -53,6 +55,9 @@ var App = React.createClass({
     bass.setRoot(params.root);
     melody.scale = scales[params.melodyScale];
     bass.scale = scales[params.bassScale];
+
+    //change url
+    history.pushState(null, null, 'app.html?' + querystring.stringify(params));
   },
   componentDidMount: function(){
     var that = this,
