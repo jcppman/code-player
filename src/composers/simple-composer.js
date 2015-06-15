@@ -10,7 +10,7 @@ function Compose(material, parameters){
       if(dried.length !== 0) {
 
         var indent = line.match(/^\s*/),
-            transpose = indent ? Math.min(indent[0].length / 2, range) : 0,
+            transpose = indent ? Math.floor(Math.min(indent[0].length / 4), range) : 0,
             braces = line.match(/[\[\]{\(\)}]/g),
             bracesAmount = braces ? braces.length % gridDivision : 0;
 
