@@ -179,7 +179,7 @@ module.exports=function(e){return new Promise(function(t,n){var s=new XMLHttpReq
 
 
 },{}],339:[function(require,module,exports){
-function Compose(e,n){n=n||{};var r=n.rangeStart||-2,t=n.rangeEnd||2,a=t-r,g=n.gridDivision||4;return e.reduce(function(e,n,t){var o=n.replace(" ","");if(0!==o.length){var i=n.match(/^\s*/),h=i?Math.min(i[0].length/2,a):0,l=n.match(/[\[\]{\(\)}]/g),c=l?l.length%g:0,m=t*g+c;e[m]={range:h+r,rawNote:o.length,index:m,length:g-c}}return e},{})}module.exports=Compose;
+function Compose(e,n){n=n||{};var r=n.rangeStart||-2,t=n.rangeEnd||2,a=t-r,o=n.gridDivision||4;return e.reduce(function(e,n,t){var g=n.replace(" ","");if(0!==g.length){var h=n.match(/^\s*/),i=h?Math.floor(Math.min(h[0].length/4),a):0,l=n.match(/[\[\]{\(\)}]/g),c=l?l.length%o:0,m=t*o+c;e[m]={range:i+r,rawNote:g.length,index:m,length:o-c}}return e},{})}module.exports=Compose;
 
 
 },{}],338:[function(require,module,exports){
