@@ -13,7 +13,8 @@ var bassComposer = require('./composers/bass-composer');
 var Track = require('./track');
 var Instrument = require('./instrument');
 var Player = require('./player');
-var scales = require('./audio-engine').scales;
+var audioEngine = require('./audio-engine');
+var scales = audioEngine.scales;
 
 var App = React.createClass({
   getInitialState: function(){
@@ -27,6 +28,13 @@ var App = React.createClass({
   render: function(){
     var Header = require('./components/header');
     var CodeViewer = require('./components/code-viewer');
+    if(!audioEngine.context) {
+      return (
+        <div className="unsupport">
+          Currently, this app only works (correctly) in Chrome and Firefox.
+        </div>
+      );
+    }
     return (
       <div className="player">
         <Header params={this.state.params} setParams={this.setParams}>

@@ -65,8 +65,10 @@ function NoteToBase(note){
   return 440 * Math.pow(2, offset / 12);
 }
 
+
 module.exports = {
-  context: new window.AudioContext(),
+  //do not support webkitAudioContext for now
+  context: window.AudioContext ? new window.AudioContext() : null,
   freqFactors: factors,
   noteToBase: NoteToBase,
   keys: [ 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#' ],
