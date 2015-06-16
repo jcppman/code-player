@@ -61,4 +61,4 @@ Finally, a simple reverb is added on mixbus.
 - more built-in composers
 - user-defined custom composer
 - able to add/edit/remove tracks, composers and effects
-
+- navigatable minimap
