@@ -46,7 +46,7 @@ var Entry = React.createClass({
   getInitialState: function(){
     var params = require('./parameters');
     params.proxy = params.proxy || 'http://crossorigin.me/';
-    params.src = 'https://raw.githubusercontent.com/jcppman/code-player/master/src/app.js';
+    params.src = params.src || 'https://raw.githubusercontent.com/jcppman/code-player/master/src/app.js';
     return {
       params: params
     };
