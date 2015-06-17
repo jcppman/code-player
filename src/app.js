@@ -10,10 +10,10 @@ var _ = require('lodash');
 var get = require('./get');
 var simpleComposer = require('./composers/simple-composer');
 var bassComposer = require('./composers/bass-composer');
-var Track = require('./track');
-var Instrument = require('./instrument');
-var Player = require('./player');
-var audioEngine = require('./audio-engine');
+var Track = require('./core/track');
+var Instrument = require('./core/instrument');
+var Player = require('./core/player');
+var audioEngine = require('./core/audio-engine');
 var scales = audioEngine.scales;
 
 var App = React.createClass({

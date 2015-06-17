@@ -1,6 +1,6 @@
 require('./parameter.less');
 
-var audioEngine = require('../../audio-engine');
+var audioEngine = require('../../core/audio-engine');
 var React = require('react');
 
 var Parameter = React.createClass({
