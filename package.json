@@ -1,6 +1,6 @@
 {
   "name": "codePlayer",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "play your code",
   "main": "app.js",
   "scripts": {
