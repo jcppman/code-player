@@ -45,7 +45,6 @@ var Settings = React.createClass({
 var Entry = React.createClass({
   getInitialState: function(){
     var params = require('./parameters');
-    params.proxy = params.proxy || 'http://crossorigin.me/';
     params.src = params.src || 'https://raw.githubusercontent.com/jcppman/code-player/master/src/app.js';
     return {
       params: params
@@ -60,18 +59,8 @@ var Entry = React.createClass({
         </div>
         <UrlInput src={this.state.params.src} />
         <Settings params={this.state.params} />
-        <div className="proxy">
-          CORS Proxy:
-          <input type="url" ref="proxy" value={this.state.params.proxy} onChange={this.changeProxy}/>
-        </div>
       </div>
     );
-  },
-  changeProxy: function(){
-    var proxy = React.findDOMNode(this.refs.proxy);
-    bus.emit('setParams', {
-      proxy: proxy.value
-    });
   },
   componentDidMount: function(){
     var that = this;
