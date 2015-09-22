@@ -24,9 +24,10 @@ function Player(params){
   reverb.dry.value = 1;
   reverb.wet.value = 0.5;
 
-  this.output = Rack([
+  this.rack = Rack([
     reverb
   ]);
+  this.output = this.rack.output;
   this.output.connect(this.ctx.destination);
 
   this._updateUnit();
