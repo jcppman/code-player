@@ -7,7 +7,7 @@ module.exports = {
     app: './app'
   },
   output: {
-    path: path.join(__dirname, 'www'),
+    path: path.join(__dirname, 'bundle'),
     filename: '[name].js'
   },
   module: {
@@ -31,6 +31,6 @@ module.exports = {
   // dev related
   devtool: 'eval-source-map',
   devServer: {
-    contentBase: path.join(__dirname, 'dist')
+    contentBase: path.join(__dirname, 'www')
   }
 };

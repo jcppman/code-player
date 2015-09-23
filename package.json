@@ -4,6 +4,7 @@
   "description": "play your code",
   "main": "app.js",
   "scripts": {
+    "start": "webpack-dev-server --inline"
   },
   "keywords": [
     "code",
