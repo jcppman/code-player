@@ -1,3 +1,4 @@
+var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
@@ -10,6 +11,10 @@ module.exports = {
     path: path.join(__dirname, 'bundle'),
     filename: '[name].js'
   },
+  plugins: [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.CommonsChunkPlugin("common.js"),
+  ],
   module: {
     loaders: [
       {
@@ -29,8 +34,8 @@ module.exports = {
   },
 
   // dev related
-  devtool: 'eval-source-map',
   devServer: {
-    contentBase: path.join(__dirname, 'www')
+    contentBase: path.join(__dirname)
   }
 };
+
