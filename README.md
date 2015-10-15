@@ -1,4 +1,4 @@
-# code-player
+# code sonata
 
 You created them, you gave them life, you know exactly what they look like.
 But, have you ever wonder what your codes **sound** like?

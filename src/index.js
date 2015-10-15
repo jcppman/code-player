@@ -54,7 +54,7 @@ var Entry = React.createClass({
     return (
       <div className="entry">
         <div className="title">
-          <h1>Code Player</h1>
+          <h1>Code Sonata</h1>
           <p className="sub">Your codes should <span className="wrong">speak</span> sing for themselves</p>
         </div>
         <UrlInput src={this.state.params.src} />

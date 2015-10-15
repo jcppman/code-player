@@ -15,11 +15,13 @@ function Track(params){
   gain.gain.value = params.volume || 0.5;
 
   this.instrument = params.instrument || new Instrument();
-  this.output = Rack([
+  this.rack = Rack([
     this.instrument.output,
     gain,
     panner
   ]);
+  this.input = this.rack.input;
+  this.output = this.rack.output;
   this.notes = params.notes || {};
   this.length = _.result(_.max(this.notes, function(note){
     return note.index;
