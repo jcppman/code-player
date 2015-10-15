@@ -4,7 +4,8 @@
   "description": "play your code",
   "main": "app.js",
   "scripts": {
-    "start": "webpack-dev-server --inline"
+    "start": "webpack-dev-server --inline --dev-tool eval-source-map",
+    "build": "webpack --config webpack.config.build.js"
   },
   "keywords": [
     "code",
