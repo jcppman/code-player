@@ -38,7 +38,7 @@ var App = React.createClass({
     return (
       <div className="player">
         <Header params={this.state.params} setParams={this.setParams}>
-          <h1><a href="index.html">Code Player</a></h1> <a href="https://github.com/jcppman/code-player">Explain it to me</a>
+          <h1><a href="index.html">Code Sonata</a></h1> <a href="https://github.com/jcppman/code-player">Explain it to me</a>
         </Header>
         <CodeViewer
           text={this.state.text}
