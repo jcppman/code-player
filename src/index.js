@@ -12,9 +12,12 @@ var bus = new EventEmitter();
 var UrlInput = React.createClass({
   render: function(){
     return (
-      <div className="url-input">
-        <input value={this.props.src} type="url" ref="url" placeholder="Source code url" onChange={this.onChange}/>
-        <button className="submit" onClick={this.go}>Go!</button>
+      <div>
+        <div className="url-input">
+          <input value={this.props.src} type="url" ref="url" placeholder="Source code url" onChange={this.onChange}/>
+          <button className="submit" onClick={this.go}>Go!</button>
+        </div>
+        <small className="cors-tip">Please make sure the source is cors-enabled, if not, use <a href="https://crossorigin.me/">CrossOrigin.me</a> to wrap it first.</small>
       </div>
     );
   },

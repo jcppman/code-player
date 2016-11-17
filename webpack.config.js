@@ -35,7 +35,8 @@ module.exports = {
 
   // dev related
   devServer: {
-    contentBase: path.join(__dirname)
+    contentBase: path.join(__dirname),
+    publicPath: '/bundle/'
   }
 };
 
